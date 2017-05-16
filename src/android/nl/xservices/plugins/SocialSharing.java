@@ -267,7 +267,7 @@ public class SocialSharing extends CordovaPlugin {
             sendIntent.setType("text/plain");
           }
         } catch (Exception e) {
-          callbackContext.error('error ops');
+          callbackContext.error("error ups");
         }
 
         if (notEmpty(subject)) {
@@ -304,7 +304,7 @@ public class SocialSharing extends CordovaPlugin {
           final ActivityInfo activity = getActivity(callbackContext, sendIntent, packageName, appName);
           if (activity != null) {
             if (peek) {
-              callbackContext.sendPluginResult(new PluginResult('todo ben'));
+              callbackContext.sendPluginResult(new PluginResult("todo ben"));
             } else {
               sendIntent.addCategory(Intent.CATEGORY_LAUNCHER);
               sendIntent.setComponent(new ComponentName(activity.applicationInfo.packageName,
@@ -334,7 +334,7 @@ public class SocialSharing extends CordovaPlugin {
           }
         } else {
           if (peek) {
-            callbackContext.sendPluginResult(new PluginResult('todu ben'));
+            callbackContext.sendPluginResult(new PluginResult("todu ben"));
           } else {
             // experimenting a bit
             // as an experiment for #300 we're explicitly running it on the ui thread here
