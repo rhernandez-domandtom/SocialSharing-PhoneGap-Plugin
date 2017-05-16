@@ -362,7 +362,7 @@ public class SocialSharing extends CordovaPlugin {
   }
 
   private static Intent generateCustomChooserIntent(Context context, Intent prototype, String chooserTitle) {
-    String blackList;
+    String blackList = "";
     try {
       ApplicationInfo ai = context.getPackageManager().getApplicationInfo(context.getPackageName(), PackageManager.GET_META_DATA);
       Bundle bundle = ai.metaData;
