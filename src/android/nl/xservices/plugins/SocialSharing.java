@@ -5,7 +5,9 @@ import android.app.Activity;
 import android.content.*;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.ResolveInfo;
+import android.os.Bundle;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
@@ -14,6 +16,7 @@ import android.util.Base64;
 import android.view.Gravity;
 import android.widget.Toast;
 import android.os.Parcelable;
+import android.nfc.Tag;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaInterface;
@@ -34,6 +37,7 @@ import java.util.Comparator;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Timer;
+import android.util.Log;
 import java.util.TimerTask;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -356,11 +360,12 @@ public class SocialSharing extends CordovaPlugin {
   }
 
   private static Intent generateCustomChooserIntent(Context context, Intent prototype, String chooserTitle) {
+    String blackList;
     try {
-      ApplicationInfo ai = getPackageManager().getApplicationInfo(activity.getPackageName(), PackageManager.GET_META_DATA);
+      ApplicationInfo ai = context.getPackageManager().getApplicationInfo(context.getPackageName(), PackageManager.GET_META_DATA);
       Bundle bundle = ai.metaData;
-      String blackList = bundle.getString("shareBlackList");
-    } catch (NameNotFoundException e) {
+      blackList = bundle.getString("shareBlackList");
+    } catch (javax.naming.NameNotFoundException e) {
       Log.e(TAG, "Failed to load meta-data, NameNotFound: " + e.getMessage());
     } catch (NullPointerException e) {
       Log.e(TAG, "Failed to load meta-data, NullPointer: " + e.getMessage());            
