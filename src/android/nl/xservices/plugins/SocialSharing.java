@@ -267,7 +267,7 @@ public class SocialSharing extends CordovaPlugin {
             sendIntent.setType("text/plain");
           }
         } catch (Exception e) {
-          callbackContext.error("error ups");
+          callbackContext.error(e.getMessage());
         }
 
         if (notEmpty(subject)) {
@@ -304,7 +304,7 @@ public class SocialSharing extends CordovaPlugin {
           final ActivityInfo activity = getActivity(callbackContext, sendIntent, packageName, appName);
           if (activity != null) {
             if (peek) {
-              callbackContext.sendPluginResult(new PluginResult("todo ben"));
+              callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK));
             } else {
               sendIntent.addCategory(Intent.CATEGORY_LAUNCHER);
               sendIntent.setComponent(new ComponentName(activity.applicationInfo.packageName,
@@ -334,7 +334,7 @@ public class SocialSharing extends CordovaPlugin {
           }
         } else {
           if (peek) {
-            callbackContext.sendPluginResult(new PluginResult("todu ben"));
+            callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK));
           } else {
             // experimenting a bit
             // as an experiment for #300 we're explicitly running it on the ui thread here
@@ -353,8 +353,8 @@ public class SocialSharing extends CordovaPlugin {
 
   private static Intent generateCustomChooserIntent(Context context, Intent prototype, String chooserTitle) {
     String[] forbiddenChoices = new String[]{"com.facebook.katana"};
-    List<Intent> targetedShareIntents = new ArrayList<Intent>();
-    List<HashMap<String, String>> intentMetaInfo = new ArrayList<HashMap<String, String>>();
+    List<Intent> targetedShareIntents = new ArrayList<>();
+    List<HashMap<String, String>> intentMetaInfo = new ArrayList<>();
     Intent chooserIntent;
 
     Intent dummy = new Intent(prototype.getAction());
