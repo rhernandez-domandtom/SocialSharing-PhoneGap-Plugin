@@ -366,7 +366,7 @@ public class SocialSharing extends CordovaPlugin {
       ApplicationInfo ai = context.getPackageManager().getApplicationInfo(context.getPackageName(), PackageManager.GET_META_DATA);
       Bundle bundle = ai.metaData;
       blackList = bundle.getString("shareBlackList");
-    } catch (javax.naming.NameNotFoundException e) {
+    } catch (NameNotFoundException e) {
       Log.e(TAG, "Failed to load meta-data, NameNotFound: " + e.getMessage());
     } catch (NullPointerException e) {
       Log.e(TAG, "Failed to load meta-data, NullPointer: " + e.getMessage());            
