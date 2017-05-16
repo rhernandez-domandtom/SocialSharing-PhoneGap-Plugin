@@ -353,8 +353,8 @@ public class SocialSharing extends CordovaPlugin {
 
   private static Intent generateCustomChooserIntent(Context context, Intent prototype, String chooserTitle) {
     String[] forbiddenChoices = new String[]{"com.facebook.katana"};
-    List<Intent> targetedShareIntents = new ArrayList<>();
-    List<HashMap<String, String>> intentMetaInfo = new ArrayList<>();
+    List<Intent> targetedShareIntents = new ArrayList<Intent>();
+    List<HashMap<String, String>> intentMetaInfo = new ArrayList<HashMap<String, String>>();
     Intent chooserIntent;
 
     Intent dummy = new Intent(prototype.getAction());
