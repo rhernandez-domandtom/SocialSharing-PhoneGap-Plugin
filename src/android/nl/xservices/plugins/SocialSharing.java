@@ -81,7 +81,7 @@ public class SocialSharing extends CordovaPlugin {
       callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK));
       return true;
     } else if (ACTION_SHARE_EVENT.equals(action)) {
-      return doSendIntent(callbackContext, args.getString(0), args.getString(1), args.getJSONArray(2), args.getString(3), null, null, false, true);
+      return doBlackListedIntent(callbackContext, args.getString(0), args.getString(1), args.getJSONArray(2), args.getString(3), null, null, false, true, null);
     } else if (ACTION_SHARE_WITH_OPTIONS_EVENT.equals(action)) {
       return shareWithOptions(callbackContext, args.getJSONObject(0));
     } else if (ACTION_SHARE_VIA_TWITTER_EVENT.equals(action)) {
@@ -356,7 +356,16 @@ public class SocialSharing extends CordovaPlugin {
   }
 
   private static Intent generateCustomChooserIntent(Context context, Intent prototype, String chooserTitle) {
-    String[] forbiddenChoices = new String[]{"com.facebook.katana"};
+    try {
+      ApplicationInfo ai = getPackageManager().getApplicationInfo(activity.getPackageName(), PackageManager.GET_META_DATA);
+      Bundle bundle = ai.metaData;
+      String blackList = bundle.getString("shareBlackList");
+    } catch (NameNotFoundException e) {
+      Log.e(TAG, "Failed to load meta-data, NameNotFound: " + e.getMessage());
+    } catch (NullPointerException e) {
+      Log.e(TAG, "Failed to load meta-data, NullPointer: " + e.getMessage());            
+    }
+    String[] forbiddenChoices = notEmpty(blackList) ? blackList.split(",") : new String[]{};
     List<Intent> targetedShareIntents = new ArrayList<Intent>();
     List<HashMap<String, String>> intentMetaInfo = new ArrayList<HashMap<String, String>>();
     Intent chooserIntent;
