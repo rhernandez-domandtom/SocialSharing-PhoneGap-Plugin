@@ -16,7 +16,6 @@ import android.util.Base64;
 import android.view.Gravity;
 import android.widget.Toast;
 import android.os.Parcelable;
-import android.nfc.Tag;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaInterface;
@@ -59,6 +58,8 @@ public class SocialSharing extends CordovaPlugin {
   private static final String ACTION_SHARE_VIA_INSTAGRAM_EVENT = "shareViaInstagram";
   private static final String ACTION_SHARE_VIA_SMS_EVENT = "shareViaSMS";
   private static final String ACTION_SHARE_VIA_EMAIL_EVENT = "shareViaEmail";
+
+  public static final String TAG = "Black List Error";
 
   private static final int ACTIVITY_CODE_SEND__BOOLRESULT = 1;
   private static final int ACTIVITY_CODE_SEND__OBJECT = 2;
